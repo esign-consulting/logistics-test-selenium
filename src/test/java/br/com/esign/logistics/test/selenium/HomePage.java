@@ -30,6 +30,12 @@ public class HomePage {
     
     @FindBy(name = "removeMapButton")
     private WebElement removeMapButton;
+    
+    @FindBy(name = "addRouteButton")
+    private WebElement addRouteButton;
+    
+    @FindBy(name = "bestRouteButton")
+    private WebElement bestRouteButton;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -41,21 +47,29 @@ public class HomePage {
         addMapButton.click();
     }
     
-    public void selectMap(String mapName) {
-        WebElement map = driver.findElement(By.xpath("//a[@class='accordion-toggle']/span[text()='" + mapName + "']"));
-        map.click();
-    }
-    
     public void clickOnRemoveMapButton() {
         removeMapButton.click();
+    }
+    
+    public void clickOnAddRouteButton() {
+        addRouteButton.click();
+    }
+    
+    public void clickOnBestRouteButton() {
+        bestRouteButton.click();
+    }
+    
+    public void selectMap(String map) {
+        WebElement mapAccordion = driver.findElement(By.xpath("//a[@class='accordion-toggle']/span[text()='" + map + "']"));
+        mapAccordion.click();
     }
     
     public boolean equalsAlertMessage(String message) {
         return alert.getText().equals(message);
     }
     
-    public boolean isAlertAddMapSuccessMessage(String mapName) {
-        String msg = MessageFormat.format("The map ''{0}'' was successfully created.", mapName);
+    public boolean isAlertAddMapSuccessMessage(String map) {
+        String msg = MessageFormat.format("The map ''{0}'' was successfully created.", map);
         return equalsAlertMessage(msg);
     }
     
@@ -63,8 +77,22 @@ public class HomePage {
         return equalsAlertMessage("The map already exists.");
     }
     
-    public boolean isAlertRemoveMapSuccessMessage(String mapName) {
-        String msg = MessageFormat.format("The map ''{0}'' was successfully removed.", mapName);
+    public boolean isAlertRemoveMapSuccessMessage(String map) {
+        String msg = MessageFormat.format("The map ''{0}'' was successfully removed.", map);
+        return equalsAlertMessage(msg);
+    }
+    
+    public boolean isAlertAddRouteSuccessMessage(String origin, String destination) {
+        String msg = MessageFormat.format("The routes ''{0}' -> '{1}'' and ''{1}' -> '{0}'' were successfully created.", new Object[] {origin, destination});
+        return equalsAlertMessage(msg);
+    }
+    
+    public boolean isAlertRouteAlreadyExistsErrorMessage() {
+        return equalsAlertMessage("The route already exists.");
+    }
+    
+    public boolean isAlertBestRouteSuccessMessage(String route, String cost) {
+        String msg = MessageFormat.format("The route ''{0}'' is the best, once the cost for delivering is {1}.", new Object[] {route, cost});
         return equalsAlertMessage(msg);
     }
     

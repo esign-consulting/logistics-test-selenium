@@ -25,7 +25,10 @@ public class UITest {
     private static WebDriver driver;
     private static HomePage home;
     
-    private final String MAP_NAME = "Selenium UITest";
+    private final String MAP = "Selenium UITest";
+    private final String PLACEA = "A";
+    private final String PLACEB = "B";
+    private final String PLACED = "D";
     
     @BeforeClass
     public static void setup() {
@@ -41,9 +44,9 @@ public class UITest {
         AddMapModal modal = new AddMapModal(driver);
         assertTrue(modal.isPageOpened());
         
-        modal.setMapName(MAP_NAME);
+        modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
-        assertTrue(home.isAlertAddMapSuccessMessage(MAP_NAME));
+        assertTrue(home.isAlertAddMapSuccessMessage(MAP));
     }
     
     @Test
@@ -52,20 +55,71 @@ public class UITest {
         AddMapModal modal = new AddMapModal(driver);
         assertTrue(modal.isPageOpened());
         
-        modal.setMapName(MAP_NAME);
+        modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
         assertTrue(home.isAlertMapAlreadyExistsErrorMessage());
     }
     
     @Test
     public void testC() {
-        home.selectMap(MAP_NAME);
+        home.selectMap(MAP);
+        
+        home.clickOnAddRouteButton();
+        AddRouteModal modal = new AddRouteModal(driver);
+        assertTrue(modal.isPageOpened(MAP));
+        
+        modal.setOriginName(PLACEA);
+        modal.setDestinationName(PLACEB);
+        modal.setDistance("10");
+        modal.clickOnAddRouteOkButton();
+        assertTrue(home.isAlertAddRouteSuccessMessage(PLACEA, PLACEB));
+        
+        home.clickOnAddRouteButton();
+        modal = new AddRouteModal(driver);
+        assertTrue(modal.isPageOpened(MAP));
+        
+        modal.setOriginName(PLACEB);
+        modal.setDestinationName(PLACED);
+        modal.setDistance("15");
+        modal.clickOnAddRouteOkButton();
+        assertTrue(home.isAlertAddRouteSuccessMessage(PLACEB, PLACED));
+    }
+    
+    @Test
+    public void testD() {
+        home.clickOnAddRouteButton();
+        AddRouteModal modal = new AddRouteModal(driver);
+        assertTrue(modal.isPageOpened(MAP));
+        
+        modal.setOriginName(PLACEA);
+        modal.setDestinationName(PLACEB);
+        modal.setDistance("10");
+        modal.clickOnAddRouteOkButton();
+        assertTrue(home.isAlertRouteAlreadyExistsErrorMessage());
+    }
+    
+    @Test
+    public void testE() {
+        home.clickOnBestRouteButton();
+        BestRouteModal modal = new BestRouteModal(driver);
+        assertTrue(modal.isPageOpened(MAP));
+        
+        modal.setOriginName(PLACEA);
+        modal.setDestinationName(PLACED);
+        modal.setAutonomy("10");
+        modal.setGasPrice("2.50");
+        modal.clickOnBestRouteOkButton();
+        assertTrue(home.isAlertBestRouteSuccessMessage("A -> B -> D", "6.25"));
+    }
+    
+    @Test
+    public void testF() {
         home.clickOnRemoveMapButton();
         RemoveMapModal modal = new RemoveMapModal(driver);
-        assertTrue(modal.isPageOpened(MAP_NAME));
+        assertTrue(modal.isPageOpened(MAP));
         
         modal.clickOnRemoveMapYesButton();
-        assertTrue(home.isAlertRemoveMapSuccessMessage(MAP_NAME));
+        assertTrue(home.isAlertRemoveMapSuccessMessage(MAP));
     }
     
     @AfterClass

@@ -32,8 +32,8 @@ public class RemoveMapModal {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean isPageOpened(String mapName) {
-        return heading.getText().contains(mapName + ": Remove Map");
+    public boolean isPageOpened(String map) {
+        return heading.getText().contains(map.concat(": Remove Map"));
     }
     
     public void clickOnRemoveMapYesButton() {
