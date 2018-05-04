@@ -38,7 +38,7 @@ public class HomePage {
     
     private final WebDriver driver;
     
-    private static final  String PAGE_URL = "http://localhost:8080/logistics";
+    private static final String PAGE_URL = getPageUrl();
     
     @FindBy(xpath = "//div[@role='alert']/div/span")
     private WebElement alert;
@@ -54,6 +54,13 @@ public class HomePage {
     
     @FindBy(name = "bestRouteButton")
     private WebElement bestRouteButton;
+    
+    private static String getPageUrl() {
+        String pageUrl = System.getProperty("page.url");
+        return (pageUrl == null || pageUrl.isEmpty())
+                ? "http://localhost:8080/logistics"
+                : pageUrl;
+    }
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
