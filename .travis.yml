@@ -1,0 +1,13 @@
+language: java
+install: true
+
+jdk:
+  - oraclejdk8
+
+script:
+  - wget -c https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz -O - | tar -xz
+  - mvn test -Dpage.url=http://www.esign.com.br/logistics -Dwebdriver.gecko.driver=geckodriver -Dheadless=true
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
