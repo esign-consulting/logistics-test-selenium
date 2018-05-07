@@ -37,6 +37,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 /**
  *
@@ -58,7 +59,9 @@ public class UITest {
      */
     @BeforeClass
     public static void setup() {
-        driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(Boolean.getBoolean("headless"));
+        driver = new FirefoxDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         
         home = new HomePage(driver);
