@@ -9,3 +9,5 @@ Besides Maven, the test also requires the installation of the [Firefox](https://
 In order to run the test, execute the command `mvn test -Dpage.url=<logistics_url> -Dwebdriver.gecko.driver=geckodriver`, replacing *<logistics_url>* by the URL where the Logistics application is available. The command `mvn test -Dpage.url=http://www.esign.com.br/logistics -Dwebdriver.gecko.driver=geckodriver`, for example, executes the test against the instance of the application at http://www.esign.com.br/logistics.
 
 The test opens the Firefox web browser and validates the Logistics application functionalities like it was a ordinary user, but in an automatic manner. If the *page.url* parameter was not defined, be sure the application is available on http://localhost:8080/logistics, the default URL.
+
+You can also prevent the Firefox web browser from openning, by adding the option *-Dheadless=true*. In this scenario, everything happens in the background, you are not able to see the web application while the tests run.
