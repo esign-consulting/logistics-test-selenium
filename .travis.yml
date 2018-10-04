@@ -1,12 +1,6 @@
 language: java
 install: true
 
-addons:
-  firefox: latest
-  apt:
-    packages:
-    - dbus-x11
-
 jdk:
   - oraclejdk8
 
