@@ -5,9 +5,7 @@ jdk:
   - oraclejdk8
 
 addons:
-  apt:
-    packages:
-    - dbus-x11
+  firefox: "65.0"
 
 script:
   - wget -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -O - | tar -xz
