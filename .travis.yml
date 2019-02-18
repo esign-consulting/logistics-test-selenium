@@ -9,7 +9,7 @@ addons:
 
 script:
   - wget -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -O - | tar -xz
-  - mvn test -Dpage.url=http://www.esign.com.br/logistics -Dwebdriver.gecko.driver=geckodriver -Dheadless=true
+  - mvn test -Dpage.url=$LOGISTICS_URL -Dwebdriver.gecko.driver=geckodriver -Dheadless=true
 
 cache:
   directories:
