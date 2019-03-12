@@ -1,2 +1,6 @@
 target/
 geckodriver
+.classpath
+.project
+.settings
+.vscode
