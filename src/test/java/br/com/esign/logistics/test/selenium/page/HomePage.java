@@ -92,6 +92,7 @@ public class HomePage {
     
     public void selectMap(String map) {
         WebElement mapAccordion = driver.findElement(By.xpath("//a[@class='accordion-toggle']/span[text()='" + map + "']"));
+        waitForElement(mapAccordion);
         mapAccordion.click();
     }
     
@@ -126,7 +127,7 @@ public class HomePage {
         String msg = MessageFormat.format("The route ''{0}'' is the best, once the cost for delivering is {1}.", new Object[] {route, cost});
         return equalsAlertMessage(msg);
     }
-    
+
     private void waitForElement(WebElement element) {
         WebDriverWait driverWait = new WebDriverWait(driver, 20);
         driverWait.until(ExpectedConditions.visibilityOf(element));
