@@ -29,6 +29,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
@@ -69,18 +71,22 @@ public class HomePage {
     }
     
     public void clickOnAddMapButton() {
+        waitForElement(addMapButton);
         addMapButton.click();
     }
     
     public void clickOnRemoveMapButton() {
+        waitForElement(removeMapButton);
         removeMapButton.click();
     }
     
     public void clickOnAddRouteButton() {
+        waitForElement(addRouteButton);
         addRouteButton.click();
     }
     
     public void clickOnBestRouteButton() {
+        waitForElement(bestRouteButton);
         bestRouteButton.click();
     }
     
@@ -119,6 +125,12 @@ public class HomePage {
     public boolean isAlertBestRouteSuccessMessage(String route, String cost) {
         String msg = MessageFormat.format("The route ''{0}'' is the best, once the cost for delivering is {1}.", new Object[] {route, cost});
         return equalsAlertMessage(msg);
+    }
+    
+    private void waitForElement(WebElement element) {
+        WebDriverWait driverWait = new WebDriverWait(driver, 20);
+        driverWait.until(ExpectedConditions.visibilityOf(element));
+        driverWait.until(ExpectedConditions.elementToBeClickable(element));
     }
     
 }
