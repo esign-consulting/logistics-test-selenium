@@ -2,15 +2,10 @@ language: java
 install: true
 
 jdk:
-  - openjdk8
+  - openjdk11
 
-addons:
-  firefox: "65.0"
+services:
+  - docker
 
 script:
-  - wget -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -O - | tar -xz
-  - mvn test -Dpage.url=http://$LOGISTICS_HOST/logistics -Dwebdriver.gecko.driver=geckodriver -Dheadless=true
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
+  - docker run --rm --network host -e LOGISTICS_URL=http://$LOGISTICS_HOST/logistics esignbr/logistics-test-selenium

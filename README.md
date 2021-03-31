@@ -8,7 +8,7 @@ Project for UI testing the [Logistics](https://github.com/esign-consulting/logis
 
 Besides Maven, the test also requires the installation of the [Firefox](https://www.mozilla.org) web browser, and the use of [geckodriver](https://github.com/mozilla/geckodriver), for enabling Selenium to interact with Firefox. Download it from <https://github.com/mozilla/geckodriver/releases> and extract it into the project folder. If your operating system is a 64-bit Linux distribution, for example, execute the command:
 
-`wget -c https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -O - | tar -xz`.
+`wget -c https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz -O - | tar -xz`.
 
 ## Running the test
 
@@ -19,3 +19,7 @@ The test opens the Firefox web browser and validates the Logistics application f
 ### Headless mode
 
 You can also prevent the Firefox web browser from openning, by adding the option *-Dheadless=true*. In this scenario, everything happens in the background, you are not able to see the web application while the tests run.
+
+### Running with Docker
+
+Alternativelly, you can run the test with Docker. To test against a local instance of the Logistics application available on port 8080, for example, execute `docker run --rm --name test --network host -e LOGISTICS_URL=http://localhost:8080/logistics esignbr/logistics-test-selenium`.
