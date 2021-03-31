@@ -8,4 +8,4 @@ services:
   - docker
 
 script:
-  - docker run --rm --network host -e LOGISTICS_URL=http://$LOGISTICS_HOST/logistics esignbr/logistics-test-selenium
+  - docker run --rm -e LOGISTICS_URL=http://$LOGISTICS_HOST/logistics esignbr/logistics-test-selenium
