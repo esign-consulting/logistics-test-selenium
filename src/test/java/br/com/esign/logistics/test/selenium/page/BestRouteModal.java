@@ -27,14 +27,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 /**
  *
  * @author gustavomunizdocarmo
  */
-public class BestRouteModal {
-
-    private final WebDriver driver;
+public class BestRouteModal extends AbstractPage {
 
     @FindBy(tagName = "h3")
     private WebElement heading;
@@ -58,39 +57,46 @@ public class BestRouteModal {
     private WebElement bestRouteCancelButton;
 
     public BestRouteModal(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 
     public boolean isPageOpened(String map) {
+        waitForElement(heading);
         return heading.getText().contains(map.concat(": Best Route"));
     }
     
     public void setOriginName(String origin) {
+        waitForElement(originName);
         originName.clear();
         originName.sendKeys(origin);
     }
     
     public void setDestinationName(String destination) {
+        waitForElement(destinationName);
         destinationName.clear();
         destinationName.sendKeys(destination);
     }
     
     public void setAutonomy(String a) {
+        waitForElement(autonomy);
         autonomy.clear();
         autonomy.sendKeys(a);
     }
     
     public void setGasPrice(String p) {
+        waitForElement(gasPrice);
         gasPrice.clear();
         gasPrice.sendKeys(p);
     }
     
     public void clickOnBestRouteOkButton() {
+        waitForElement(bestRouteOkButton);
         bestRouteOkButton.click();
     }
     
     public void clickOnBestRouteCancelButton() {
+        waitForElement(bestRouteCancelButton);
         bestRouteCancelButton.click();
     }
 

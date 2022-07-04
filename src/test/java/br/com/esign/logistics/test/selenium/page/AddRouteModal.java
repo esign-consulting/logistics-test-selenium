@@ -27,14 +27,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 /**
  *
  * @author gustavomunizdocarmo
  */
-public class AddRouteModal {
-
-    private final WebDriver driver;
+public class AddRouteModal extends AbstractPage {
 
     @FindBy(tagName = "h3")
     private WebElement heading;
@@ -55,34 +54,40 @@ public class AddRouteModal {
     private WebElement addRouteCancelButton;
 
     public AddRouteModal(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 
     public boolean isPageOpened(String map) {
+        waitForElement(heading);
         return heading.getText().contains(map.concat(": New Route"));
     }
     
     public void setOriginName(String origin) {
+        waitForElement(originName);
         originName.clear();
         originName.sendKeys(origin);
     }
     
     public void setDestinationName(String destination) {
+        waitForElement(destinationName);
         destinationName.clear();
         destinationName.sendKeys(destination);
     }
     
     public void setDistance(String d) {
+        waitForElement(distance);
         distance.clear();
         distance.sendKeys(d);
     }
     
     public void clickOnAddRouteOkButton() {
+        waitForElement(addRouteOkButton);
         addRouteOkButton.click();
     }
     
     public void clickOnAddRouteCancelButton() {
+        waitForElement(addRouteCancelButton);
         addRouteCancelButton.click();
     }
 

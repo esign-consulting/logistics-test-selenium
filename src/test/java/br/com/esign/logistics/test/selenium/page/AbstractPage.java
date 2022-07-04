@@ -23,54 +23,25 @@
  */
 package br.com.esign.logistics.test.selenium.page;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-/**
- *
- * @author gustavomunizdocarmo
- */
-public class AddMapModal extends AbstractPage {
-
-    @FindBy(tagName = "h3")
-    private WebElement heading;
-
-    @FindBy(id = "mapName")
-    private WebElement mapName;
-
-    @FindBy(name = "addMapOkButton")
-    private WebElement addMapOkButton;
-
-    @FindBy(name = "addMapCancelButton")
-    private WebElement addMapCancelButton;
-
-    public AddMapModal(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
-    }
-
-    public boolean isPageOpened() {
-        waitForElement(heading);
-        return heading.getText().contains("New Map");
-    }
+public abstract class AbstractPage {
     
-    public void setMapName(String name) {
-        waitForElement(mapName);
-        mapName.clear();
-        mapName.sendKeys(name);
+    protected final WebDriver driver;
+
+    protected AbstractPage(WebDriver driver) {
+        this.driver = driver;
     }
-    
-    public void clickOnAddMapOkButton() {
-        waitForElement(addMapOkButton);
-        addMapOkButton.click();
-    }
-    
-    public void clickOnAddMapCancelButton() {
-        waitForElement(addMapCancelButton);
-        addMapCancelButton.click();
+
+    protected void waitForElement(WebElement element) {
+        WebDriverWait driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driverWait.until(ExpectedConditions.visibilityOf(element));
+        driverWait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
 }

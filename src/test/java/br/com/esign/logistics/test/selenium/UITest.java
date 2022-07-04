@@ -28,16 +28,17 @@ import br.com.esign.logistics.test.selenium.page.RemoveMapModal;
 import br.com.esign.logistics.test.selenium.page.BestRouteModal;
 import br.com.esign.logistics.test.selenium.page.AddMapModal;
 import br.com.esign.logistics.test.selenium.page.HomePage;
-import java.util.concurrent.TimeUnit;
+
+import java.time.Duration;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  *
@@ -45,28 +46,28 @@ import org.openqa.selenium.firefox.FirefoxOptions;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UITest {
-    
+
     private static WebDriver driver;
     private static HomePage home;
-    
+
     private final String MAP = "Selenium UITest";
     private final String PLACEA = "A";
     private final String PLACEB = "B";
     private final String PLACED = "D";
-    
+
     /**
      * Starts the driver and opens the homepage.
      */
     @BeforeClass
     public static void setup() {
-        FirefoxOptions options = new FirefoxOptions();
+        ChromeOptions options = new ChromeOptions();
         options.setHeadless(Boolean.getBoolean("headless"));
-        driver = new FirefoxDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         home = new HomePage(driver);
     }
-    
+
     /**
      * Adds a map.
      */
@@ -75,12 +76,12 @@ public class UITest {
         home.clickOnAddMapButton();
         AddMapModal modal = new AddMapModal(driver);
         assertTrue(modal.isPageOpened());
-        
+
         modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
         assertTrue(home.isAlertAddMapSuccessMessage(MAP));
     }
-    
+
     /**
      * Checks the unique map constraint.
      */
@@ -89,40 +90,40 @@ public class UITest {
         home.clickOnAddMapButton();
         AddMapModal modal = new AddMapModal(driver);
         assertTrue(modal.isPageOpened());
-        
+
         modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
         assertTrue(home.isAlertMapAlreadyExistsErrorMessage());
     }
-    
+
     /**
      * Adds routes to the map.
      */
     @Test
     public void testC() {
         home.selectMap(MAP);
-        
+
         home.clickOnAddRouteButton();
         AddRouteModal modal = new AddRouteModal(driver);
         assertTrue(modal.isPageOpened(MAP));
-        
+
         modal.setOriginName(PLACEA);
         modal.setDestinationName(PLACEB);
         modal.setDistance("10");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertAddRouteSuccessMessage(PLACEA, PLACEB));
-        
+
         home.clickOnAddRouteButton();
         modal = new AddRouteModal(driver);
         assertTrue(modal.isPageOpened(MAP));
-        
+
         modal.setOriginName(PLACEB);
         modal.setDestinationName(PLACED);
         modal.setDistance("15");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertAddRouteSuccessMessage(PLACEB, PLACED));
     }
-    
+
     /**
      * Checks the unique route constaint.
      */
@@ -131,14 +132,14 @@ public class UITest {
         home.clickOnAddRouteButton();
         AddRouteModal modal = new AddRouteModal(driver);
         assertTrue(modal.isPageOpened(MAP));
-        
+
         modal.setOriginName(PLACEA);
         modal.setDestinationName(PLACEB);
         modal.setDistance("10");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertRouteAlreadyExistsErrorMessage());
     }
-    
+
     /**
      * Checks the best route functionality.
      */
@@ -147,7 +148,7 @@ public class UITest {
         home.clickOnBestRouteButton();
         BestRouteModal modal = new BestRouteModal(driver);
         assertTrue(modal.isPageOpened(MAP));
-        
+
         modal.setOriginName(PLACEA);
         modal.setDestinationName(PLACED);
         modal.setAutonomy("10");
@@ -155,7 +156,7 @@ public class UITest {
         modal.clickOnBestRouteOkButton();
         assertTrue(home.isAlertBestRouteSuccessMessage("A -> B -> D", "6.25"));
     }
-    
+
     /**
      * Removes the map.
      */
@@ -164,11 +165,11 @@ public class UITest {
         home.clickOnRemoveMapButton();
         RemoveMapModal modal = new RemoveMapModal(driver);
         assertTrue(modal.isPageOpened(MAP));
-        
+
         modal.clickOnRemoveMapYesButton();
         assertTrue(home.isAlertRemoveMapSuccessMessage(MAP));
     }
-    
+
     /**
      * Closes the driver.
      */
@@ -176,5 +177,5 @@ public class UITest {
     public static void close() {
         driver.close();
     }
-    
+
 }

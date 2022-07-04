@@ -27,14 +27,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 /**
  *
  * @author gustavomunizdocarmo
  */
-public class RemoveMapModal {
-
-    private final WebDriver driver;
+public class RemoveMapModal extends AbstractPage {
 
     @FindBy(tagName = "h3")
     private WebElement heading;
@@ -46,19 +45,22 @@ public class RemoveMapModal {
     private WebElement removeMapNoButton;
 
     public RemoveMapModal(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 
     public boolean isPageOpened(String map) {
+        waitForElement(heading);
         return heading.getText().contains(map.concat(": Remove Map"));
     }
     
     public void clickOnRemoveMapYesButton() {
+        waitForElement(removeMapYesButton);
         removeMapYesButton.click();
     }
     
     public void clickOnRemoveMapNoButton() {
+        waitForElement(removeMapNoButton);
         removeMapNoButton.click();
     }
 
