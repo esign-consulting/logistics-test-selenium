@@ -13,4 +13,4 @@ RUN apt update \
     && tar xzf dependencies.tar.gz -C /root/.m2 \
     && rm dependencies.tar.gz
 
-CMD ["sh", "-c", "mvn -o test -Dpage.url=$LOGISTICS_URL -Dwebdriver.gecko.driver=geckodriver -Dheadless=true"]
+CMD ["sh", "-c", "mvn -o test -Dpage.url=$LOGISTICS_URL -Dheadless=true"]
