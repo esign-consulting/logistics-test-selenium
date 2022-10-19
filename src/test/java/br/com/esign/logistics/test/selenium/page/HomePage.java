@@ -41,6 +41,9 @@ public class HomePage extends AbstractPage {
     
     @FindBy(xpath = "//div[@role='alert']/div/span")
     private WebElement alert;
+
+    @FindBy(xpath = "//div[@role='alert']/button[@class='close']")
+    private WebElement alertCloseButton;
     
     @FindBy(name = "addMapButton")
     private WebElement addMapButton;
@@ -67,6 +70,11 @@ public class HomePage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
     
+    public void clickOnAlertCloseButton() {
+        waitForElement(alertCloseButton);
+        alertCloseButton.click();
+    }
+
     public void clickOnAddMapButton() {
         waitForElement(addMapButton);
         addMapButton.click();

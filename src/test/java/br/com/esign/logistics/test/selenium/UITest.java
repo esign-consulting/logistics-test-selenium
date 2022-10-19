@@ -29,16 +29,18 @@ import br.com.esign.logistics.test.selenium.page.BestRouteModal;
 import br.com.esign.logistics.test.selenium.page.AddMapModal;
 import br.com.esign.logistics.test.selenium.page.HomePage;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 
 /**
  *
@@ -60,6 +62,7 @@ public class UITest {
      */
     @BeforeClass
     public static void setup() {
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(Boolean.getBoolean("headless"));
         driver = new ChromeDriver(options);
@@ -80,6 +83,7 @@ public class UITest {
         modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
         assertTrue(home.isAlertAddMapSuccessMessage(MAP));
+        home.clickOnAlertCloseButton();
     }
 
     /**
@@ -94,6 +98,7 @@ public class UITest {
         modal.setMapName(MAP);
         modal.clickOnAddMapOkButton();
         assertTrue(home.isAlertMapAlreadyExistsErrorMessage());
+        home.clickOnAlertCloseButton();
     }
 
     /**
@@ -112,6 +117,7 @@ public class UITest {
         modal.setDistance("10");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertAddRouteSuccessMessage(PLACEA, PLACEB));
+        home.clickOnAlertCloseButton();
 
         home.clickOnAddRouteButton();
         modal = new AddRouteModal(driver);
@@ -122,6 +128,7 @@ public class UITest {
         modal.setDistance("15");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertAddRouteSuccessMessage(PLACEB, PLACED));
+        home.clickOnAlertCloseButton();
     }
 
     /**
@@ -138,6 +145,7 @@ public class UITest {
         modal.setDistance("10");
         modal.clickOnAddRouteOkButton();
         assertTrue(home.isAlertRouteAlreadyExistsErrorMessage());
+        home.clickOnAlertCloseButton();
     }
 
     /**
@@ -155,6 +163,7 @@ public class UITest {
         modal.setGasPrice("2.50");
         modal.clickOnBestRouteOkButton();
         assertTrue(home.isAlertBestRouteSuccessMessage("A -> B -> D", "6.25"));
+        home.clickOnAlertCloseButton();
     }
 
     /**
@@ -168,6 +177,7 @@ public class UITest {
 
         modal.clickOnRemoveMapYesButton();
         assertTrue(home.isAlertRemoveMapSuccessMessage(MAP));
+        home.clickOnAlertCloseButton();
     }
 
     /**
