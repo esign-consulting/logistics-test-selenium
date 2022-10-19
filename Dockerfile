@@ -5,7 +5,7 @@ WORKDIR /logistics-test-selenium
 COPY src src
 COPY pom.xml dependencies.tar.gz ./
 
-RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y \
+RUN apt-get update \
     && curl -s https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O \
     && apt-get install ./google-chrome-stable_current_amd64.deb -y \
     && rm -rf google-chrome-stable_current_amd64.deb /var/lib/apt/lists/* \

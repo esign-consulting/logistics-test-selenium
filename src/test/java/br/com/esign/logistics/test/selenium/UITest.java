@@ -65,6 +65,7 @@ public class UITest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(Boolean.getBoolean("headless"));
+        options.addArguments("--no-sandbox");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
