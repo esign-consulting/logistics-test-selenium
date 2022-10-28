@@ -1,6 +1,6 @@
 # logistics-test-selenium
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build status](https://travis-ci.org/esign-consulting/logistics-test-selenium.svg?branch=master)](https://travis-ci.org/esign-consulting/logistics-test-selenium)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Docker Build status](https://img.shields.io/docker/cloud/build/esignbr/logistics-test-selenium.svg)](https://hub.docker.com/r/esignbr/logistics-test-selenium/builds) [![Docker Pulls](https://img.shields.io/docker/pulls/esignbr/logistics-test-selenium.svg)](https://hub.docker.com/r/esignbr/logistics-test-selenium)
 
 Project for UI testing the [Logistics](https://github.com/esign-consulting/logistics) application. The test is based on [Selenium](https://www.seleniumhq.org) and is executed through [Maven](https://maven.apache.org) **(installation required)**.
 
