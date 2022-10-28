@@ -24,5 +24,6 @@ jobs:
           url: http://localhost:8080/logistics
           max-attempts: 10
           retry-delay: 2s
+          retry-all: true
       - name: Run UI Test
         run: docker run --rm --network host -e LOGISTICS_URL=http://localhost:8080/logistics esignbr/logistics-test-selenium
