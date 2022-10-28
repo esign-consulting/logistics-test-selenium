@@ -18,5 +18,11 @@ jobs:
       - uses: isbang/compose-action@v1.3.2
         with:
           compose-file: docker-compose.yml
+      - name: Wait until Logistics is up and running
+        uses: jtalk/url-health-check-action@v2
+        with:
+          url: http://localhost:8080/logistics
+          max-attempts: 10
+          retry-delay: 2s
       - name: Run UI Test
         run: docker run --rm --network host -e LOGISTICS_URL=http://localhost:8080/logistics esignbr/logistics-test-selenium
